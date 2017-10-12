@@ -1,0 +1,46 @@
+\\\\MYOB Import Classes
+\\\\ioCog Dev
+\\\\Last Updated 21/7/2017
+
+Class Customer(
+	Name,
+	InMYOB
+);
+
+Class BankAccount(
+	Account,
+	AccountNumber
+);
+
+Class Income(
+	IncomeType,
+	ReceivedTo,
+	ReceivedDate,
+	Amount,
+	LoadRun,
+	Exported
+);
+
+Class IncomeType(
+	IncomeType,
+	Customer,
+	Account
+);
+
+Class MYOBIncome(
+	DepositAccount,
+	ReceivedDate,
+	Inclusive,
+	Customer,
+	AllocAccount,
+	ExTaxAmount,
+	IncTaxAmount,
+);
+
+Class Account(
+	AccountNumber,
+	AccountName,
+	Header,
+	AccountType,
+	TaxCode
+);

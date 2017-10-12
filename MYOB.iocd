@@ -1,0 +1,10 @@
+﻿\\\\MYOB Initial Data Load File
+\\\\MYOB Import
+\\\\ioCog Dev
+\\\\21 Jul 2017
+
+
+CSVLOAD Account ("C:\Development\ioCog Projects\MYOB Example\Accounts.txt");
+SQLLOAD IncomeType;
+SQLLOAD BankAccount;
+SQLLOAD Income;

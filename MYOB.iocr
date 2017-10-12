@@ -1,0 +1,36 @@
+\\\\MYOB Import Rules
+\\\\ioCog Dev
+\\\\Last Updated 21/7/2017
+
+Rule Income(
+	Income IncomeType = <it>, ReceivedTo = <rt>, ReceivedDate = <rd>, Amount = <amt>, Exported = False;
+	IncomeType IncomeType = <it>, Customer = <cus>, Account = <acct>;
+	Account AccountNumber = <acct>, TaxCode = <tc>;
+	BankAccount Account = <rt>, AccountNumber = <rta>;
+	Set <eta> = Calc(<amt> 1.1 /);
+-->
+	MAKE MYOBIncome( DepositAccount <rta>, ReceivedDate <rd>, Inclusive X, Customer <cus>, AllocAccount <acct>, ExTaxAmount <eta>, IncTaxAmount <amt>);
+	MODIFY 1 (Exported True);
+);
+
+Rule UnmatchedIncomeType(
+	Income IncomeType = <it>, ReceivedDate = <rd>, Exported = False;
+	! IncomeType IncomeType = <it>;
+-->
+	WRITE ("Unmatched Income Type " <it> " on " <rd>);
+);
+
+Rule UnmatchedIncomeAccount(
+	Income IncomeType = <it>, ReceivedDate = <rd>, Exported = False;
+	IncomeType IncomeType = <it>, Account = <acct>;
+	! Account AccountNumber = <acct>
+-->
+	WRITE( "Unmatched Income Type " <it> " on " <rd>);
+);
+
+
+Rule WriteOutput(
+	! Income Exported = False;
+-->
+	WriteCSV MYOBIncome ("C:\Development\ioCog Projects\MYOB Example\Income.txt", Overwrite);
+);

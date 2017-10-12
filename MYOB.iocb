@@ -1,0 +1,56 @@
+\\\\MYOB Import Bindings
+\\\\ioCog Dev
+\\\\Last Updated 21/7/2017
+
+SQLConnection SQLDB (SQLSERVER "data source=iocogdev;initial catalog=Accounts;uid=ioCog;pwd=p@55w0rd;");
+
+SQLBind Income (SQLDB, Income,
+	Mapping(
+	IncomeType IncomeType,
+	ReceivedTo ReceivedTo,
+	ReceivedDate ReceivedDate,
+	Amount Amount,
+	LoadRun LoadRun,
+	Exported Exported
+	)
+);
+
+SQLBind IncomeType(SQLDB, IncomeType,
+	Mapping (
+		IncomeType IncomeType,
+		Customer Customer,
+		Account Account),
+	READONLY
+);
+
+SQLBind BankAccount(SQLDB, BankAccount,
+	Mapping(
+		Account Account,
+		AccountNumber, AccountNumber
+	),
+	READONLY
+);
+
+CSVBind MYOBIncome(",
+	Bindings (
+		DepositAccount,
+		ReceivedDate "d",
+		Customer,
+		Inclusive,
+		,
+		IncTaxAmount "#0.00",
+		IncTaxAmount "#0.00",
+		\n,
+		,
+		ReceivedDate "d",
+		,
+		Inclusive,
+		AllocAccount,
+		ExTaxAmount "#0.00",
+		IncTaxAmount "#0.00",
+		\n
+	),
+	HEADER ("Deposit Account", Date, "Co./Last Name", Inclusive, "Allocation Account #", "Ex-Tax Amount", "Inc-Tax Amount")
+);
+
+CSVBind Account( ",	Bindings( AccountNumber, AccountName, Header, AccountType, TaxCode), HEADER);

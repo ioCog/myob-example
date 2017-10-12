@@ -1,0 +1,13 @@
+﻿\\\\ioCog Project File
+\\\\MYOB Import
+\\\\ioCog Dev
+\\\\21 July 2016
+
+Project "MYOB Import";
+
+Verbosity 0;
+
+Load MYOB.iocc;
+Load MYOB.iocb;
+Load MYOB.iocr;
+Load MYOB.iocd;
